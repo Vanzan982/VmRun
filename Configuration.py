@@ -72,3 +72,7 @@ class Configuration:
     def set_path(self, path):
         self.path = path
 
+# this file has no main method, so it will not run on its own
+# instead, it will be imported by other files
+if __name__ == "__main__":
+     print("This file is not meant to be run directly. Please run main.py instead.")
