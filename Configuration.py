@@ -6,10 +6,9 @@ class Configuration:
     def __init__(self, path):
         # if no path is given, use a file named json.config in the current directory
         if path == None:
-            path = "json.config"
+            path = os.path.dirname(os.path.realpath(__file__)) + "\\json.config"
 
         self.path = path
-        self.config = None
         self.load()
 
     # initializes the configuration file with default values
@@ -18,9 +17,11 @@ class Configuration:
         if not os.path.exists(self.path):
             self.config = {
                 'vmrunPath': r'C:\Program Files (x86)\VMware\VMware Player\vmrun.exe',
-                'vmwarePath': r'E:\Virtual Machines\Ubuntu DEV',
-                'vmwareName': 'Ubuntu DEV'
+                'vmwarePath': r'',
+                'vmwareName': ''
             }
+            # write config to file
+            self.save()
 
     def get_vmware_name(self):
         return self.config['vmwareName']
@@ -45,6 +46,7 @@ class Configuration:
         self.config['vmwarePath'] = path
 
     def load(self):
+        self.init()
         with open(self.path, 'r') as f:
             self.config = json.load(f)
 
